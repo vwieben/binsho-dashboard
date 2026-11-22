@@ -161,8 +161,11 @@
 
   <section class="card method">
     <h2 data-i18n="method"></h2>
-    <p data-i18n="method1"></p>
-    <p data-i18n="method2"></p>
+    <p data-i18n="mTwr"></p>
+    <p data-i18n="mDd"></p>
+    <p data-i18n="mRatio"></p>
+    <p data-i18n="mCalmar"></p>
+    <p id="m-oos"></p>
     <p class="glossary" data-i18n="glossary"></p>
   </section>
 
@@ -183,13 +186,16 @@ const T = {
   en: {
     lead: "Strategic core portfolio with a rule-based Bitcoin satellite, developed in Python with AI assistance following the principle “verification before implementation”. Performance compared with buy-and-hold benchmarks, shown in relative figures only.",
     growth: "Return",
-    growthDesc: "Time-weighted, after trading commissions, before taxes, deposits removed. Benchmarks in EUR, accumulating (dividends included).",
+    growthDesc: "Time-weighted, after trading commissions, before taxes, deposits removed.",
     drawdown: "Drawdown",
     drawdownDesc: "Decline from the previous high.",
     comparison: "Comparison",
     method: "Method",
-    method1: "<b>Return</b> is time-weighted (TWR), after trading commissions and before taxes: deposits and withdrawals are removed, so the figure reflects the strategy, not the timing of capital. <b>Drawdown</b> is measured on that return index. <b>Drawdown ratio</b> = Binsho's maximum drawdown divided by the benchmark's over the same period; below 1 means shallower losses. It is shown once the benchmark has fallen at least 1 %. <b>CAGR</b> and <b>Calmar ratio</b> (CAGR ÷ max drawdown) are shown after 12 months.",
-    method2: "<b>Out-of-sample only.</b> The record starts on the first day of operation. No backtest data is shown or blended in. Benchmarks are fully invested buy-and-hold positions from the same start date.",
+    mTwr: "<b>Return</b> is time-weighted (TWR), after trading commissions and before taxes: deposits and withdrawals are removed, so the figure reflects the strategy, not the timing of capital.",
+    mDd: "<b>Drawdown</b> is measured on that return index.",
+    mRatio: "<b>Drawdown ratio</b> = Binsho's maximum drawdown divided by the benchmark's over the same period; below 1 means shallower losses. It is shown once the benchmark has fallen at least 1 %.",
+    mCalmar: "<b>CAGR</b> (compound annual growth rate) and <b>Calmar ratio</b> (CAGR ÷ max drawdown) are shown in the Calmar ratio tile after 12 months.",
+    mOos: d => `<b>Out-of-sample</b><br>All figures shown come from operation since ${d}, after the strategy had been fully developed and fixed. Backtest data is neither shown nor mixed in. Benchmarks are held fully invested from the same day (buy-and-hold).`,
     disclaimer: "Legal notice: Not investment advice or a recommendation, not an offer. Past performance is not a reliable indicator of future results. Short observation period, limited significance.",
     glossary: "<b>TWR</b> (time-weighted return): performance with the effect of deposits and withdrawals removed.<br><b>Max drawdown</b>: the largest decline from a previous peak to a later low.<br><b>Calmar ratio</b>: annual return (CAGR) divided by the size of the maximum drawdown.",
     src: "Portfolio values from an IBKR paper account, execution and fees simulated by IBKR.",
@@ -200,7 +206,7 @@ const T = {
     since: (d, n) => `Since ${d} · ${n} days`, asOf: d => `Data as of ${d}`,
     twr: "Return (TWR)", sinceStart: "since start", vs: n => `vs ${n}`, excess: "Relative return",
     maxDd: "Max drawdown", curDd: "Current drawdown", fromHigh: "from peak",
-    calmar: "Calmar ratio", after12: "after 12 months",
+    calmar: "Calmar ratio", after12: "with CAGR, after 12 months",
     thReturn: "Return", thMaxDd: "Max drawdown", thExcess: "Binsho relative return", thRatio: "Drawdown ratio",
     chartGrowth: "Growth: Binsho vs benchmarks", chartDd: "Drawdown: Binsho vs benchmarks",
     noData: "No data published yet.",
@@ -210,13 +216,16 @@ const T = {
   de: {
     lead: "Strategisches Kernportfolio mit regelbasiert gesteuertem Bitcoin-Satelliten, KI-gestützt in Python entwickelt nach dem Prinzip „Verifikation vor Implementierung“. Wertentwicklung im Vergleich zu Buy-and-Hold-Benchmarks, dargestellt ausschließlich in relativen Kennzahlen.",
     growth: "Rendite",
-    growthDesc: "Zeitgewichtet, nach Handelsgebühren, vor Steuern, bereinigt um Einzahlungen. Benchmarks in EUR, thesaurierend (Dividenden enthalten).",
+    growthDesc: "Zeitgewichtet, nach Handelsgebühren, vor Steuern, bereinigt um Einzahlungen.",
     drawdown: "Drawdown",
     drawdownDesc: "Rückgang vom vorherigen Hoch.",
     comparison: "Vergleich",
     method: "Methode",
-    method1: "<b>Rendite</b> ist zeitgewichtet (TWR), nach Handelsgebühren und vor Steuern: Ein- und Auszahlungen sind herausgerechnet, die Kennzahl zeigt also die Strategie, nicht den Zeitpunkt des Kapitals. <b>Drawdown</b> wird auf diesem Renditeindex gemessen. <b>Drawdown-Verhältnis</b> = maximaler Drawdown von Binsho geteilt durch den der Benchmark im selben Zeitraum; ein Wert unter 1 bedeutet flachere Verluste. Es wird angezeigt, sobald die Benchmark mindestens 1 % gefallen ist. <b>CAGR</b> und <b>Calmar-Ratio</b> (CAGR ÷ max. Drawdown) werden nach 12 Monaten angezeigt.",
-    method2: "<b>Nur Out-of-Sample.</b> Die Aufzeichnung beginnt am ersten Betriebstag. Es werden keine Backtest-Daten gezeigt oder eingemischt. Benchmarks sind voll investierte Buy-and-hold-Positionen ab demselben Startdatum.",
+    mTwr: "<b>Rendite</b> ist zeitgewichtet (TWR), nach Handelsgebühren und vor Steuern: Ein- und Auszahlungen sind herausgerechnet, die Kennzahl zeigt also die Strategie, nicht den Zeitpunkt des Kapitals.",
+    mDd: "<b>Drawdown</b> wird auf diesem Renditeindex gemessen.",
+    mRatio: "<b>Drawdown-Verhältnis</b> = maximaler Drawdown von Binsho geteilt durch den der Benchmark im selben Zeitraum; ein Wert unter 1 bedeutet flachere Verluste. Es wird angezeigt, sobald die Benchmark mindestens 1 % gefallen ist.",
+    mCalmar: "<b>CAGR</b> (durchschnittliche jährliche Rendite) und <b>Calmar-Ratio</b> (CAGR ÷ max. Drawdown) werden nach 12 Monaten in der Kachel Calmar-Ratio angezeigt.",
+    mOos: d => `<b>Out-of-Sample</b><br>Alle dargestellten Werte stammen aus dem Betrieb seit dem ${d}, nach abgeschlossener Entwicklung und Festlegung der Strategie. Backtest-Daten werden weder gezeigt noch eingemischt. Die Vergleichsindizes werden ab demselben Tag voll investiert gehalten (Buy-and-hold).`,
     disclaimer: "Rechtlicher Hinweis: Keine Anlageberatung oder -empfehlung, kein Angebot. Vergangene Wertentwicklung ist kein verlässlicher Indikator für künftige Ergebnisse. Kurzer Beobachtungszeitraum, eingeschränkte Aussagekraft.",
     glossary: "<b>TWR</b> (zeitgewichtete Rendite): Wertentwicklung ohne den Einfluss von Ein- und Auszahlungen.<br><b>Max. Drawdown</b>: größter Rückgang von einem bisherigen Höchststand bis zu einem späteren Tiefpunkt.<br><b>Calmar-Ratio</b>: jährliche Rendite (CAGR) geteilt durch den Betrag des maximalen Drawdowns.",
     src: "Depotwerte aus einem IBKR-Paper-Konto, Ausführung und Gebühren simuliert durch IBKR.",
@@ -227,7 +236,7 @@ const T = {
     since: (d, n) => `Seit ${d} · ${n} Tage`, asOf: d => `Datenstand ${d}`,
     twr: "Rendite (TWR)", sinceStart: "seit Start", vs: n => `ggü. ${n}`, excess: "Relative Rendite",
     maxDd: "Max. Drawdown", curDd: "Akt. Drawdown", fromHigh: "vom Höchststand",
-    calmar: "Calmar-Ratio", after12: "ab 12 Monaten",
+    calmar: "Calmar-Ratio", after12: "mit CAGR, ab 12 Monaten",
     thReturn: "Rendite", thMaxDd: "Max. Drawdown", thExcess: "Relative Rendite Binsho", thRatio: "Drawdown-Verhältnis",
     chartGrowth: "Wachstum: Binsho im Vergleich zu Benchmarks", chartDd: "Drawdown: Binsho im Vergleich zu Benchmarks",
     noData: "Noch keine Daten veröffentlicht.",
@@ -317,6 +326,14 @@ if (window.ResizeObserver) new ResizeObserver(() => fitTiles()).observe(document
 else window.addEventListener("resize", fitTiles);
 const fmtDate = s => new Date(s + "T00:00:00").toLocaleDateString(lang === "de" ? "de-DE" : "en-GB", { day: "numeric", month: "short", year: "numeric" });
 const el = (id) => document.getElementById(id);
+// Out-of-sample start: from metrics.json (start), until it arrives the known first day of operation
+const OOS_START = "2026-10-12";
+function renderOos() {
+  const s = new Date((data ? data.start : OOS_START) + "T00:00:00");
+  const d = lang === "de" ? s.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })
+    : s.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  el("m-oos").innerHTML = t().mOos(d);
+}
 
 function legend(id, series) {
   el(id).innerHTML = series.map(s => `<span style="--c:${s.c}">${s.name}</span>`).join("");
@@ -432,6 +449,7 @@ function render(m) {
   el("src").textContent = L.src;
   const b = m.benchmarks, k = m.kpi;
   renderTiles(m);
+  renderOos();
 
   const rows = m.series;
   // axis decimals follow the tick step, so a narrow range never repeats a label
@@ -458,6 +476,7 @@ function applyText() {
   const L = t();
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-i18n]").forEach(n => n.innerHTML = L[n.dataset.i18n]);
+  renderOos();
   el("tiles") && el("tiles").setAttribute("aria-label", L.keyFigures);
   el("a11y").setAttribute("aria-label", L.toolbar);
   el("lang-de").setAttribute("aria-pressed", lang === "de"); el("lang-de").title = L.langDe;

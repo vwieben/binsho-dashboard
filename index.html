@@ -63,14 +63,13 @@
   .pair .card { margin-bottom: 0; display: flex; flex-direction: column; min-width: 0; }
   .pair .legend { margin-top: auto; }
   @media (max-width: 760px) { .pair { grid-template-columns: minmax(0, 1fr); } }
-  /* side by side: the cards share row heights (subgrid), so both charts stay aligned although only
-     the return card carries the source line below its chart */
+  /* side by side: the cards share row heights (subgrid: title, description, legend, chart), so legend
+     and chart start at the same height even when one description wraps to more lines than the other */
   @media (min-width: 761px) { @supports (grid-template-rows: subgrid) {
     .pair { row-gap: 0; }
-    .pair .card { display: grid; grid-row: span 5; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+    .pair .card { display: grid; grid-row: span 4; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); row-gap: 0; }
     .pair .legend { margin-top: 0; align-self: end; }
   } }
-  .src { font-size: calc(12px * var(--fs)); color: var(--text-muted); margin: 8px 0 8px; }
   .stale { color: var(--text-muted); border: 1px solid var(--border); border-radius: 999px; padding: 0 8px; }
   .card h2 { font-size: calc(15px * var(--fs)); margin: 0 0 2px; }
   .card .desc { font-size: calc(12px * var(--fs)); color: var(--text-secondary); margin: 0 0 1.5em; }  /* one line of air before the legend */
@@ -142,7 +141,6 @@
     <p class="desc" data-i18n="growthDesc"></p>
     <div class="legend" id="legend-idx"></div>
     <div class="chart" id="chart-idx"></div>
-    <p class="src" id="src"></p>
   </section>
 
   <section class="card">
@@ -198,7 +196,6 @@ const T = {
     mOos: d => `<b>Out-of-sample</b><br>All figures shown come from operation since ${d}, after the strategy had been fully developed and fixed. Backtest data is neither shown nor mixed in. Benchmarks are held fully invested from the same day (buy-and-hold).`,
     disclaimer: "Legal notice: Not investment advice or a recommendation, not an offer. Past performance is not a reliable indicator of future results. Short observation period, limited significance.",
     glossary: "<b>TWR</b> (time-weighted return): performance with the effect of deposits and withdrawals removed.<br><b>Max drawdown</b>: the largest decline from a previous peak to a later low.<br><b>Calmar ratio</b>: annual return (CAGR) divided by the size of the maximum drawdown.",
-    src: "Portfolio values from an IBKR paper account, execution and fees simulated by IBKR.",
     stale: "Data delayed",
     legal: "Legal notice &amp; Privacy",
     keyFigures: "Key figures",
@@ -228,7 +225,6 @@ const T = {
     mOos: d => `<b>Out-of-Sample</b><br>Alle dargestellten Werte stammen aus dem Betrieb seit dem ${d}, nach abgeschlossener Entwicklung und Festlegung der Strategie. Backtest-Daten werden weder gezeigt noch eingemischt. Die Vergleichsindizes werden ab demselben Tag voll investiert gehalten (Buy-and-hold).`,
     disclaimer: "Rechtlicher Hinweis: Keine Anlageberatung oder -empfehlung, kein Angebot. Vergangene Wertentwicklung ist kein verlässlicher Indikator für künftige Ergebnisse. Kurzer Beobachtungszeitraum, eingeschränkte Aussagekraft.",
     glossary: "<b>TWR</b> (zeitgewichtete Rendite): Wertentwicklung ohne den Einfluss von Ein- und Auszahlungen.<br><b>Max. Drawdown</b>: größter Rückgang von einem bisherigen Höchststand bis zu einem späteren Tiefpunkt.<br><b>Calmar-Ratio</b>: jährliche Rendite (CAGR) geteilt durch den Betrag des maximalen Drawdowns.",
-    src: "Depotwerte aus einem IBKR-Paper-Konto, Ausführung und Gebühren simuliert durch IBKR.",
     stale: "Datenstand verzögert",
     legal: "Impressum &amp; Datenschutz",
     keyFigures: "Kennzahlen",
@@ -354,7 +350,9 @@ function lineChart(id, rows, series, opts) {
   let lo = Infinity, hi = -Infinity;
   rows.forEach(r => series.forEach(s => { const v = r[s.key]; if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); } }));
   if (opts.zeroTop) hi = 0;
-  const pad = (hi - lo) * 0.08 || 1; lo -= pad; if (!opts.zeroTop) hi += pad;
+  // headroom below only: the top edge of the plot is the highest value, in both charts the same rule,
+  // so the 0 % lines line up as long as the return has not risen above 0 %
+  const pad = (hi - lo) * 0.08 || 1; lo -= pad;
   const x = i => m.l + (n === 1 ? iw / 2 : i * iw / (n - 1));
   const y = v => m.t + (hi - v) / (hi - lo) * ih;
   // ticks
@@ -446,7 +444,6 @@ function render(m) {
   const L = t();
   const stale = isStale(m.as_of) ? `<span class="stale">${L.stale}</span>` : "";
   el("meta").innerHTML = `<span>${L.paper}</span><span>${L.since(fmtDate(m.start), m.days)}</span><span>${L.asOf(fmtDate(m.as_of))}</span>${stale}`;
-  el("src").textContent = L.src;
   const b = m.benchmarks, k = m.kpi;
   renderTiles(m);
   renderOos();

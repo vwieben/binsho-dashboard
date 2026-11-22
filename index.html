@@ -73,7 +73,7 @@
   .src { font-size: calc(12px * var(--fs)); color: var(--text-muted); margin: 8px 0 8px; }
   .stale { color: var(--text-muted); border: 1px solid var(--border); border-radius: 999px; padding: 0 8px; }
   .card h2 { font-size: calc(15px * var(--fs)); margin: 0 0 2px; }
-  .card .desc { font-size: calc(12px * var(--fs)); color: var(--text-secondary); margin: 0 0 8px; }
+  .card .desc { font-size: calc(12px * var(--fs)); color: var(--text-secondary); margin: 0 0 1.5em; }  /* one line of air before the legend */
   .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: calc(12px * var(--fs)); color: var(--text-secondary); margin-bottom: 6px; }
   .legend span::before { content: ""; display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; background: var(--c); }
   .chart { position: relative; }
@@ -206,7 +206,7 @@ const T = {
     since: (d, n) => `Since ${d} · ${n} days`, asOf: d => `Data as of ${d}`,
     twr: "Return (TWR)", sinceStart: "since start", vs: n => `vs ${n}`, excess: "Relative return",
     maxDd: "Max drawdown", curDd: "Current drawdown", fromHigh: "from peak",
-    calmar: "Calmar ratio", after12: "with CAGR, after 12 months",
+    calmar: "Calmar ratio", after12: "with CAGR",
     thReturn: "Return", thMaxDd: "Max drawdown", thExcess: "Binsho relative return", thRatio: "Drawdown ratio",
     chartGrowth: "Growth: Binsho vs benchmarks", chartDd: "Drawdown: Binsho vs benchmarks",
     noData: "No data published yet.",
@@ -236,7 +236,7 @@ const T = {
     since: (d, n) => `Seit ${d} · ${n} Tage`, asOf: d => `Datenstand ${d}`,
     twr: "Rendite (TWR)", sinceStart: "seit Start", vs: n => `ggü. ${n}`, excess: "Relative Rendite",
     maxDd: "Max. Drawdown", curDd: "Akt. Drawdown", fromHigh: "vom Höchststand",
-    calmar: "Calmar-Ratio", after12: "mit CAGR, ab 12 Monaten",
+    calmar: "Calmar-Ratio", after12: "mit CAGR",
     thReturn: "Rendite", thMaxDd: "Max. Drawdown", thExcess: "Relative Rendite Binsho", thRatio: "Drawdown-Verhältnis",
     chartGrowth: "Wachstum: Binsho im Vergleich zu Benchmarks", chartDd: "Drawdown: Binsho im Vergleich zu Benchmarks",
     noData: "Noch keine Daten veröffentlicht.",

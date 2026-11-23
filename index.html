@@ -513,5 +513,6 @@ fetch("metrics.json", { cache: "no-store" })
   .then(m => { data = m; render(m); })
   .catch(() => { el("tiles").outerHTML = `<p class="err">${t().noData}</p>`; });
 </script>
+<script data-goatcounter="https://binsho.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
